@@ -7,9 +7,9 @@ import java.util.stream.Collectors;
 public class RemoveInStrings {
     public static void main(String[] args) {
 
-        System.out.println(removeCharWord("Привет", 'е'));
-        System.out.println(removeDuplicates("Привеет"));
-        System.out.println(removeDuplicates2("Привет как дела"));
+        System.out.println(removeCharWord("Аа а А %% б 1 3 1", '%')); // Аа а А  б 1 3 1
+        System.out.println(removeDuplicates("Аа а А %% б 1 3 1")); // Аа %б13
+        System.out.println(removeDuplicates2("Аа а А %% б 1 3 1")); // Аа %б13
 
 
     }
@@ -20,7 +20,7 @@ public class RemoveInStrings {
             if (removeChars != chars){
                 builder.append(removeChars);
             }
-        } return builder.toString();
+        } return builder.toString().replaceAll("\\s+", " "); // чтобы убрать лишние пробелы
     }
 
     /*
@@ -33,10 +33,10 @@ public class RemoveInStrings {
         HashSet<Character> hashSet = new HashSet<>();
         for (char chars : ch){
             if (hashSet.add(chars)){
-                builder.append(chars);
+                builder.append(chars).append(" ");
 
             }
-        } return  builder.toString();
+        } return builder.toString().replaceAll("\\s+", " ");
     }
 
 
@@ -44,7 +44,8 @@ public class RemoveInStrings {
         return Arrays.stream(str.split(""))
                 .distinct() // distinct() возвращает новый поток различных элементов.
                 // Поэтому его можно использовать для удаления дубликатов элементов из набора.
-                .collect(Collectors.joining());
+                .collect(Collectors.joining(" "))
+                .replaceAll("\\s+", " ");
     }
 
 }
